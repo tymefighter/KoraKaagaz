@@ -15,6 +15,12 @@ public class TriangleDrawer {
         Position vertC,
         Intensity intensity
 	) {
+		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
 		
+		pixels.addAll(LineDrawer.drawSegment(vertA, vertB, intensity));
+		pixels.addAll(LineDrawer.drawSegment(vertB, vertC, intensity));
+		pixels.addAll(LineDrawer.drawSegment(vertC, vertA, intensity));
+		
+		return pixels;
 	}
 }
