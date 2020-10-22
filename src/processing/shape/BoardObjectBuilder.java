@@ -2,6 +2,11 @@ package processing.shape;
 
 import processing.utility.*;
 
+/**
+*
+* @author Ahmed Zaheer Dadarkar
+*/
+
 // This functions in `BoardObjectBuilder` class
 // are responsible for computing the pixels
 // from the given parameters, updating

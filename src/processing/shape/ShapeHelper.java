@@ -1,24 +1,17 @@
 package processing.shape;
 
+import java.util.ArrayList;
 import processing.utility.*;
 
-import java.util.ArrayList;
+/**
+*
+* @author Ahmed Zaheer Dadarkar
+*/
 
 public class ShapeHelper {
-	public static void insertPixelForPoint(
-		BrushRadius brushRadius,
-		Position point,
-		ArrayList<Pixel> pixelList
-	) {
-		
-	}
-	
-	public static void insertLineToList(
-		BrushRadius brushRadius,
-		Position pointA,
-        Position pointB,
-        Intensity intensity,
-        ArrayList<Pixel> pixelList
+	protected static void magnifyPixelSize(
+		ArrayList<Pixel> pixels,
+		BrushRadius radius
 	) {
 		
 	}
