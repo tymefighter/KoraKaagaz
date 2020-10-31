@@ -3,7 +3,6 @@ package processing.shape;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import processing.utility.*;
 
 /**
@@ -29,11 +28,32 @@ public class ShapeHelper {
 		}
 	}
 	
-	protected static void removeDuplicates(
+	protected static ArrayList<Pixel> removeDuplicates(
 		ArrayList<Pixel> pixels
 	) {
 		Set<Pixel> pixelSet = new HashSet<Pixel>(pixels);
-		pixels.clear();
-		pixels.addAll(pixelSet);
+		return new ArrayList<Pixel>(pixelSet);
+	}
+	
+	protected static ArrayList<Pixel> removeIllegalPoints(
+		ArrayList<Pixel> pixels,
+		Dimension boardDimension
+	) {
+		ArrayList<Pixel> updatedPixels = new ArrayList<Pixel>();
+		
+		for(Pixel pixel : pixels) {
+			if(
+				pixel.position.r >= 0
+				&&
+				pixel.position.r < boardDimension.numRows
+				&&
+				pixel.position.c >= 0
+				&&
+				pixel.position.c < boardDimension.numCols
+			)
+				updatedPixels.add(new Pixel(pixel));
+		}
+		
+		return updatedPixels;
 	}
 }
