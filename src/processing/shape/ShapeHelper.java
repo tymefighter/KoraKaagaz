@@ -20,7 +20,7 @@ public class ShapeHelper {
 		for(int i = 0;i < numInitPixels;i++) {
 			ArrayList<Pixel> magnifiedPixels = CircleDrawer.drawCircle(
 				pixels.get(i).position, 
-				new Radius(brushRadius.radius), 
+				new Radius(brushRadius.brushRadius), 
 				pixels.get(i).intensity
 			);
 			
