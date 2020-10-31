@@ -1,9 +1,10 @@
 package processing;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+
 import processing.utility.Filepath;
 
 public class PersistanceSupport {
@@ -11,27 +12,32 @@ public class PersistanceSupport {
 	public static void storeState (
         BoardState boardState,
         Filepath filepath
-    ) throws IOException {
+    ) throws IOException, UnsupportedEncodingException {
 		
-		String boardStateString = 
+		String boardStateString = "";
 			Serialize.serialize(boardState);
 		
 		File boardFile = new File(filepath.toString());
 		if(!boardFile.exists())
 			boardFile.createNewFile();
 		
-		FileWriter boardFileWriter = new FileWriter(boardFile);
-		
-		boardFileWriter.write(boardStateString);
-		boardFileWriter.close();
+		Files.write(
+			boardFile.toPath(), 
+			boardStateString.getBytes("ISO-8859-1")
+		);
 	}
 	
     public static BoardState loadState (
         Filepath filepath
-    ) {
+    ) throws IOException, UnsupportedEncodingException, ClassNotFoundException {
     	File boardFile = new File(filepath.toString());
     	
-    	FileReader boardFileReader = new FileReader(boardFile);
-    	return null;
+    	byte[] boardStateBytes = Files.readAllBytes(boardFile.toPath());
+    	String boardStateString = new String(boardStateBytes, "ISO-8859-1");
+    	
+    	BoardState boardState =
+    		(BoardState) Serialize.deSerialize(boardStateString);
+    	
+    	return boardState;
     }
 }
