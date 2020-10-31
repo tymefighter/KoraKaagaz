@@ -180,33 +180,64 @@ public class LineDrawer {
 		b.c = temp;
 	}
 	
+	/**
+	 * Draws Line which have the absolute value of slope less than
+	 * or equal to 1, i.e. absolute change in column is more than 
+	 * or equal to the absolute change in row. Also, the start
+	 * point must have a lower or equal col than end point
+	 * 
+	 * @param start Start point of the line
+	 * @param end End point of the line
+	 * @param intensity Intensity of each point in the line
+	 * @return The arraylist of pixels of the line segment 
+	 */
 	private static ArrayList<Pixel> drawLineLow(
 		Position start,
 		Position end,
 		Intensity intensity
 	) {
+		// Pixel arraylist which must be returned
 		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
 		
+		// Add start point
 		pixels.add(new Pixel(
 			new Position(start), 
 			new Intensity(intensity)
 		));
 
-		int dr = end.r - start.r;
-		int dc = end.c - start.c;
-		int decisionParam, rInc = 1;
+		int dr = end.r - start.r; // Difference in row
+		int dc = end.c - start.c; // Difference in col
 		
+		// Decision parameter is used to decide whether to increment
+		// (or decrement) the row for the next iteration
+		int decisionParam;
+		
+		// Value to be added to row on an iteration when decision
+		// parameter indicates it to be added
+		int rInc = 1;
+		
+		// If change in row is less than 0, then our line is heading
+		// from a higher row value to a lower row value, so our increment
+		// in row is actually negative
 		if(dr < 0) {
 			dr = -dr;
 			rInc = -1;
 		}
 		
+		// Compute initial decision parameter
 		decisionParam = 2 * dr - dc;
-		int prevRow = start.r;
+		int prevRow = start.r; // Starting point's row value
 
+		// Start from the 1st point (0-based) since we have
+		// already taken the 0th point
 		for(int c = start.c + 1;c <= end.c;c++) {
+			
+			// Compute position assuming row remains the same
 			Position pos = new Position(prevRow, c);
 
+			// If decision parameter is greater than zero, we increment
+			// row value and update decision parameter else we only
+			// update the decision parameter
 			if(decisionParam > 0) {
 				pos.r += rInc;
 				decisionParam += 2 * (dr - dc);
@@ -214,12 +245,14 @@ public class LineDrawer {
 			else
 				decisionParam += 2 * dr;
 
+			// Add the pixel to our arraylist
 			pixels.add(new Pixel(
 				pos,
 				new Intensity(intensity)
 			));
 		}
 
+		// Return the computed pixel arraylist
 		return pixels;
 	}
 	
