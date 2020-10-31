@@ -22,18 +22,27 @@ public class LineDrawer {
 		lineAlgorithm = algorithm;
 	}
 	
+	/**
+	 * Draws a Line Segment from pointA to pointB
+	 * 
+	 * @param pointA First end point of the line segment
+	 * @param pointB Second end point of the line segment
+	 * @param intensity Intensity of each point on the segment
+	 * @return The arraylist of pixels of the line segment 
+	 */
 	protected static ArrayList<Pixel> drawSegment(
 		Position pointA,
 	    Position pointB,
 	    Intensity intensity
 	) {
+		// If DDA algorithm is to be used, then use it
 		if(lineAlgorithm == Algorithm.DDA)
 			return digitalDifferentialAnalyser(
 				pointA,
 				pointB,
 				intensity
 			);
-		else
+		else // Else if Bresenham algorithm is to be used, then use it
 			return bresenhamLineDraw(
 				pointA,
 				pointB,
@@ -41,6 +50,23 @@ public class LineDrawer {
 			);
 	}
 	
+	/**
+	 * Digital Differential Analser Algorithm
+	 * 
+	 * This algorithm constructs a line segment between two given
+	 * points. It approximates the continuous line segment on the
+	 * discrete surface (bitmap).
+	 * 
+	 * Algorithm Link:
+	 * 
+	 * @see <a href="https://en.wikipedia.org/wiki/
+	 * Digital_differential_analyzer_(graphics_algorithm)</a>
+	 * 
+	 * @param pointA First end point of the line segment
+	 * @param pointB Second end point of the line segment
+	 * @param intensity Intensity of each point on the segment
+	 * @return The arraylist of pixels of the line segment 
+	 */
 	private static ArrayList<Pixel> digitalDifferentialAnalyser(
 		Position pointA,
 	    Position pointB,
@@ -82,42 +108,73 @@ public class LineDrawer {
 		return pixels;
 	}
 	
+	/**
+	 * Bresenham's Line Drawing Algorithm
+	 * 
+	 * This algorithm constructs a line segment between two given
+	 * points. It approximates the continuous line segment on the
+	 * discrete surface (bitmap). It does not perform any floating
+	 * point calculations, and optimally selects points which are
+	 * close to the actual line.
+	 * 
+	 * Algorithm Link:
+	 * 
+	 * @see <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm</a>
+	 * 
+	 * @param pointA First end point of the line segment
+	 * @param pointB Second end point of the line segment
+	 * @param intensity Intensity of each point on the segment
+	 * @return The arraylist of pixels of the line segment 
+	 */
 	private static ArrayList<Pixel> bresenhamLineDraw(
 		Position pointA,
 	    Position pointB,
 	    Intensity intensity
 	) {
-		int drAbs = Math.abs(pointB.r - pointA.r);
-		int dcAbs = Math.abs(pointB.c - pointA.c);
+		int drAbs = Math.abs(pointB.r - pointA.r); // Differnece along row axis
+		int dcAbs = Math.abs(pointB.c - pointA.c); // Difference along col axis
 		
+		// Pixel arraylist which must be returned
 		ArrayList<Pixel> pixels = null;
 		
+		// If difference along col axis is more, we can sample more points
+		// along col axis (in increments of 1) compared to row axis
 		if(dcAbs >= drAbs) {
 			if(pointB.c < pointA.c)
 				swapPosition(pointA, pointB);
 			
+			// Use drawLineLow to draw a "low" line, i.e. line with slope
+			// having absolute value between 0 and 1
 			pixels = drawLineLow(pointA, pointB, intensity);
 		}
 		else {
+			// If difference along row axis is more, we can sample more
+			// points along row axis compared to col axis
 			if(pointB.r < pointA.r)
 				swapPosition(pointA, pointB);
 			
+			// Use drawLineHigh to draw a "high" line, i.e. line with slope
+			// having absolute value greater than 1
 			pixels = drawLineHigh(pointA, pointB, intensity);
 		}
 		
+		// Return the computed pixel arraylist
 		return pixels;
 	}
 	
+	/** Swap member values in a {@link Position} object */
 	private static void swapPosition(
 		Position a,
 		Position b
 	) {
 		int temp;
 		
+		// Swap row values
 		temp = a.r;
 		a.r = b.r;
 		b.r = temp;
 		
+		// swap col values
 		temp = a.c;
 		a.c = b.c;
 		b.c = temp;
