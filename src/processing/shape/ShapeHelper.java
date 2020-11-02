@@ -19,7 +19,7 @@ public class ShapeHelper {
 	 * up the shape border after the shape border was drawn,
 	 * hence the mention of "post" in the name.
 	 * 
-	 * @param pixels The pixels of the drawn shape
+	 * @param pixels The pixels of the drawn shape border
 	 * @param brushRadius Radius of the brush chosen
 	 * @param boardDimension Dimension of the board
 	 * @return the post processed pixels
@@ -49,37 +49,79 @@ public class ShapeHelper {
 		return pixels;
 	}
 	
+	/**
+	 * Method for performing operations to clean up the filled shape
+	 * after the filled shape was drawn, hence the mention of "post"
+	 * in the name.
+	 * 
+	 * An important difference between current function and {@link #postDrawProcessing}
+	 * is that our current function performs post processing on a
+	 * filled shape, which is completely dense and visible, but
+	 * the other function performs on borders of shapes, which
+	 * need to be magnified since single pixel width is not quite
+	 * visibles.
+	 * 
+	 * @param pixels The pixels of the drawn filled shape
+	 * @param boardDimension Dimension of the board
+	 * @return Dimension of the boards
+	 */
 	protected static ArrayList<Pixel> postFillProcessing(
 		ArrayList<Pixel> pixels,
 		Dimension boardDimension
 	) {
+		// Remove any duplicate pixels if present
 		pixels = removeDuplicates(pixels);
+		
+		// Remove any illegal points present, like points
+		// with negative coordinates, or coordinates outside
+		// the board itself
 		pixels = removeIllegalPoints(
 			pixels,
 			boardDimension
 		);
 		
+		// Return the post processed pixels
 		return pixels;
 	}
 	
+	/**
+	 * Magnifies each pixel present in the input arraylist
+	 * by constructing a filled circle of the provided
+	 * brush radius about it (i.e. keeping that pixel as the
+	 * center)
+	 * 
+	 * @param pixels Arraylist of pixels whose pixels are to be modified
+	 * @param brushRadius Radius of circle drawn about each pixel (gives
+	 * the feel of being drawn using a brush of the provided radius, hence
+	 * the name brushRadius)
+	 * @return The magnified arraylist of pixels
+	 */
 	private static ArrayList<Pixel> magnifyPixels(
 		ArrayList<Pixel> pixels,
 		BrushRadius brushRadius
 	) {
+		// Initialize updated arraylist
 		ArrayList<Pixel> updatedPixels = new ArrayList<Pixel>();
 
+		// Iterate over each pixel in the input arraylist and
+		// "magnify" it (i.e. draw a filled circle about it)
 		for(Pixel pixel : pixels) {
 			
+			// Draw a filled circle about pixel with radius given by
+			// the brush radius
 			ArrayList<Pixel> magnifiedPixels = CircleDrawer.drawCircleFill(
 				pixel.position, 
 				new Radius(brushRadius.brushRadius), 
 				pixel.intensity
 			);
 			
+			// Place each of the pixel corresponding to the filled circle
+			// into our updated arraylist
 			for(Pixel magPixel : magnifiedPixels)
 				updatedPixels.add(magPixel);
 		}
 		
+		// Return the updated arraylist of pixels
 		return updatedPixels;
 	}
 	
