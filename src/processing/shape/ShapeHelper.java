@@ -90,7 +90,7 @@ public class ShapeHelper {
 	 * brush radius about it (i.e. keeping that pixel as the
 	 * center)
 	 * 
-	 * @param pixels Arraylist of pixels whose pixels are to be modified
+	 * @param pixels Arraylist of pixels whose pixels are to be magnified
 	 * @param brushRadius Radius of circle drawn about each pixel (gives
 	 * the feel of being drawn using a brush of the provided radius, hence
 	 * the name brushRadius)
@@ -125,19 +125,40 @@ public class ShapeHelper {
 		return updatedPixels;
 	}
 	
+	/**
+	 * Remove duplicates present in the provided pixels
+	 * 
+	 * @param pixels Arraylist of pixels from whom we must remove duplicates
+	 * @return ArrayList of pixels corresponding to the input but without
+	 * duplicates
+	 */
 	private static ArrayList<Pixel> removeDuplicates(
 		ArrayList<Pixel> pixels
 	) {
+		// Construct a HashsSet using the pixels, this automatically
+		// removes all duplicates
 		Set<Pixel> pixelSet = new HashSet<Pixel>(pixels);
+		
+		// Return the arraylist of pixels without duplicates
 		return new ArrayList<Pixel>(pixelSet);
 	}
 	
+	/**
+	 * Remove illegal points from the provided pixels
+	 * 
+	 * @param pixels Arraylist of pixels from whom we must remove illegal points
+	 * @param boardDimension Dimension of the board
+	 * @return ArrayList of pixels without illegal points
+	 */
 	private static ArrayList<Pixel> removeIllegalPoints(
 		ArrayList<Pixel> pixels,
 		Dimension boardDimension
 	) {
+		// Initialize updated arraylist
 		ArrayList<Pixel> updatedPixels = new ArrayList<Pixel>();
 		
+		// Iterate over all pixels and add only those pixels to
+		// our updated arraylist if they are valid
 		for(Pixel pixel : pixels) {
 			if(
 				pixel.position.r >= 0
@@ -151,6 +172,7 @@ public class ShapeHelper {
 				updatedPixels.add(new Pixel(pixel));
 		}
 		
+		// Return the updated arraylist of pixels
 		return updatedPixels;
 	}
 }
