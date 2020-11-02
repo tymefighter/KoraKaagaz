@@ -6,27 +6,47 @@ import java.util.Set;
 import processing.utility.*;
 
 /**
-*
-* @author Ahmed Zaheer Dadarkar
-*/
+ *
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
 
 public class ShapeHelper {
-	protected static void magnifyPixels(
+	
+	protected static ArrayList<Pixel> postDrawProcessing(
+		ArrayList<Pixel> pixels,
+		BrushRadius brushRadius,
+		Dimension boardDimension
+	) {
+		ArrayList<Pixel> magPixels = magnifyPixels(pixels, brushRadius);
+		ArrayList<Pixel> magPixelWithoutDup = removeDuplicates(magPixels);
+		ArrayList<Pixel> finalPixels = removeIllegalPoints(
+			magPixelWithoutDup,
+			boardDimension
+		);
+		
+		return finalPixels;
+	}
+	
+	protected static ArrayList<Pixel> magnifyPixels(
 		ArrayList<Pixel> pixels,
 		BrushRadius brushRadius
 	) {
-		int numInitPixels = pixels.size();
-		for(int i = 0;i < numInitPixels;i++) {
+		ArrayList<Pixel> updatedPixels = new ArrayList<Pixel>();
+
+		for(Pixel pixel : pixels) {
 			
 			ArrayList<Pixel> magnifiedPixels = CircleDrawer.drawCircleFill(
-				pixels.get(i).position, 
+				pixel.position, 
 				new Radius(brushRadius.brushRadius), 
-				pixels.get(i).intensity
+				pixel.intensity
 			);
 			
-			for(Pixel pixel : magnifiedPixels)
-				pixels.add(pixel);
+			for(Pixel magPixel : magnifiedPixels)
+				updatedPixels.add(magPixel);
 		}
+		
+		return updatedPixels;
 	}
 	
 	protected static ArrayList<Pixel> removeDuplicates(
