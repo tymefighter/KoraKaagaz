@@ -65,6 +65,7 @@ public class PersistanceSupport {
 	 * 
 	 * @param boardId Board ID of the board whose state is to be retrieveds
 	 * @return the Board State object reconstructed from the Serialized String
+	 * stored in the Filesystem
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 * @throws ClassNotFoundException
