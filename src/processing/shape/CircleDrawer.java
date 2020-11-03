@@ -15,7 +15,7 @@ public class CircleDrawer {
 	public enum AlgorithmCircle {MID_POINT};
 	
 	/** Algorithm for Circle Fill */
-	public enum AlgorithmFill {DEVANSH};
+	public enum AlgorithmFill {MID_POINT_BASED, DEVANSH};
 	
 	/** Variable storing the algorithm for Circle Boundary */
 	private static AlgorithmCircle circleAlgorithm =
@@ -23,7 +23,7 @@ public class CircleDrawer {
 	
 	/** Variable storing the algorithm for Circle Fill */
 	private static AlgorithmFill fillAlgorithm =
-		AlgorithmFill.DEVANSH;
+		AlgorithmFill.MID_POINT_BASED;
 	
 	/** Sets the algorithm for Circle Boundary to be used */
 	protected static void setAlgorithmCircle(AlgorithmCircle algorithm) {
@@ -49,7 +49,15 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
     ) {
-		return midPointCircleDraw(center, radius, intensity);
+		ArrayList<Pixel> pixels = null;
+		
+		switch(circleAlgorithm) {
+			case MID_POINT:
+			default:
+				pixels = midPointCircleDraw(center, radius, intensity);
+		}
+		
+		return pixels;
 	}
 	
 	/**
@@ -66,7 +74,18 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
 	) {
-		return midPointBasedCircleFill(center, radius, intensity);
+		ArrayList<Pixel> pixels = null;
+		switch(fillAlgorithm) {
+			case DEVANSH:
+				pixels = devanshCircleFill(center, radius, intensity);
+				break;
+			
+			case MID_POINT_BASED:
+			default:
+				pixels = midPointBasedCircleFill(center, radius, intensity);
+		}
+
+		return pixels;
 	}
 	
 	private static ArrayList<Pixel> midPointCircleDraw(
