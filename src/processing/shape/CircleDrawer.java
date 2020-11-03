@@ -49,14 +49,22 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
     ) {
+		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = null;
 		
+		// Select Algorithm based on choice
 		switch(circleAlgorithm) {
+		
+			// If Mid Point method was selected, use mid point circle
+			// drawing algorithm (fall through case)
 			case MID_POINT:
+				
+			// By default, use mid point based circle filling algorithm
 			default:
 				pixels = midPointCircleDraw(center, radius, intensity);
 		}
 		
+		// Return the computed pixel arraylist
 		return pixels;
 	}
 	
@@ -74,13 +82,24 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
 	) {
+		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = null;
+		
+		// Select Algorithm based on choice
 		switch(fillAlgorithm) {
+		
+			// If Devansh method was selected, use Devansh Circle
+			// Filling Algorithm
 			case DEVANSH:
 				pixels = devanshCircleFill(center, radius, intensity);
 				break;
 			
+			// If Mid Point Based method was selected, use Mid Point
+			// Based Filling Algorithm (fall through case)
 			case MID_POINT_BASED:
+				
+			// By Default, use Mid Point
+			// Based Filling Algorithm
 			default:
 				pixels = midPointBasedCircleFill(center, radius, intensity);
 		}
