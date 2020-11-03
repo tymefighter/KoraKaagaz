@@ -23,7 +23,8 @@ public class LineDrawer {
 	}
 	
 	/**
-	 * Draws a Line Segment from pointA to pointB
+	 * Draws a Line Segment from pointA to pointB based on the
+	 * selected algorithm
 	 * 
 	 * @param pointA First end point of the line segment
 	 * @param pointB Second end point of the line segment
