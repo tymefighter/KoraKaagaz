@@ -12,14 +12,14 @@ import processing.utility.*;
 public class CircleDrawer {
 	
 	/** Algorithm for Circle Boundary */
-	public enum AlgorithmCircle {BRESENHAM};
+	public enum AlgorithmCircle {MID_POINT};
 	
 	/** Algorithm for Circle Fill */
 	public enum AlgorithmFill {DEVANSH};
 	
 	/** Variable storing the algorithm for Circle Boundary */
 	private static AlgorithmCircle circleAlgorithm =
-		AlgorithmCircle.BRESENHAM;
+		AlgorithmCircle.MID_POINT;
 	
 	/** Variable storing the algorithm for Circle Fill */
 	private static AlgorithmFill fillAlgorithm =
@@ -49,8 +49,7 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
     ) {
-		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
-		return pixels;
+		return midPointCircleDraw(center, radius, intensity);
 	}
 	
 	/**
@@ -70,6 +69,64 @@ public class CircleDrawer {
 		return devanshCircleFill(center, radius, intensity);
 	}
 	
+	private static ArrayList<Pixel> midPointCircleDraw(
+		Position center,
+        Radius radius,
+        Intensity intensity
+	) {
+		// Initialize arraylist of pixels
+		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
+		
+		int rad = (int) Math.round(radius.radius);
+		Position pos = new Position(0, rad);
+		int decisionParam = 1 - rad;
+		
+		addSymmetricPoints(pixels, pos, intensity, center);
+
+		while(pos.c > pos.r) {
+			
+			if(decisionParam < 0)
+				decisionParam += 2 * pos.r + 3;
+			else {
+				decisionParam += 2 * pos.r - 2 * pos.c + 5;
+				pos.c --;
+			}
+			
+			pos.r ++;
+			addSymmetricPoints(pixels, pos, intensity, center);
+		}
+		
+		return pixels;
+	}
+	
+	private static void addSymmetricPoints(
+		ArrayList<Pixel> pixels,
+		Position pos,
+		Intensity intensity,
+		Position center
+	) {
+		Position[] allSymmetricPos = new Position[] {
+			new Position(pos.r, pos.c),
+			new Position(pos.c, pos.r),
+			new Position(pos.c, -pos.r),
+			new Position(pos.r, -pos.c),
+			new Position(-pos.r, -pos.c),
+			new Position(-pos.c, -pos.r),
+			new Position(-pos.c, pos.r),
+			new Position(-pos.r, pos.c)
+		};
+		
+		for(Position symmetricPos : allSymmetricPos) {
+			pixels.add(new Pixel(
+				new Position(
+					symmetricPos.r + center.r, 
+					symmetricPos.c + center.c
+				),
+				new Intensity(intensity)
+			));
+		}
+	}
+	
 	/**
 	 * Devansh Circle Filling Algorithm constructs a filled circle
 	 * given the center and radius of the circle
@@ -86,8 +143,10 @@ public class CircleDrawer {
 	) {
 		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
+		
 		// Convert radius to integer by rounding
-		int rad = (int)Math.round(radius.radius);
+		int rad = (int) Math.round(radius.radius);
+		
 		// Compute square of radius
 		int radSquare = rad * rad;
 		
