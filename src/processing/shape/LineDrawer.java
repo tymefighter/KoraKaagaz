@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import processing.utility.*;
 
 /**
-*
-* @author Ahmed Zaheer Dadarkar
-*/
+ * Static Line Segment Drawing Methods
+ *
+ * @author Ahmed Zaheer Dadarkar
+ */
 
 public class LineDrawer {
 	

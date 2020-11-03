@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import processing.utility.*;
 
 /**
-*
-* @author Ahmed Zaheer Dadarkar
-*/
+ * Static Circle Drawing Methods
+ *
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
 
 public class CircleDrawer {
 	
@@ -108,6 +110,14 @@ public class CircleDrawer {
 		return pixels;
 	}
 	
+	/**
+	 * Mid Point Circle Drawing Algorithm
+	 * 
+	 * @param center Center of the filled circle 
+	 * @param radius Radius of the filled circle
+	 * @param intensity Intensity of each pixel of the filled circle
+	 * @return the arraylist of pixels of the filled circle
+	 */
 	private static ArrayList<Pixel> midPointCircleDraw(
 		Position center,
         Radius radius,
@@ -116,34 +126,59 @@ public class CircleDrawer {
 		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
 		
+		// Get radius after rounding to nearest integer
 		int rad = (int) Math.round(radius.radius);
+		
+		// Initial Position
 		Position pos = new Position(0, rad);
+		
+		// Initial Decision Parameter
 		int decisionParam = 1 - rad;
 		
+		// Add all points based on symmetry
 		addSymmetricPoints(pixels, pos, intensity, center);
 
+		// Run until we complete one octant
 		while(pos.c > pos.r) {
 			
+			// If decision parameter is less than zero, then
+			// select East (E)
 			if(decisionParam < 0)
 				decisionParam += 2 * pos.r + 3;
-			else {
+			
+			else { 	// If decision parameter is greater than or equal
+					// to zero, then select South East (SE)
+				
 				decisionParam += 2 * pos.r - 2 * pos.c + 5;
 				pos.c --;
 			}
 			
+			// Increment row coordinate
 			pos.r ++;
+			
+			// Add all points based on symmetry
 			addSymmetricPoints(pixels, pos, intensity, center);
 		}
 		
+		// Return the computed pixel arraylists
 		return pixels;
 	}
 	
+	/**
+	 * Add all positions symmetric to the position provided
+	 * 
+	 * @param pixels ArrayList of pixels to which we add the points
+	 * @param pos Position whose symmetric positions are to be added
+	 * @param intensity Intensity of each symmetric position
+	 * @param center Center of the circle
+	 */
 	private static void addSymmetricPoints(
 		ArrayList<Pixel> pixels,
 		Position pos,
 		Intensity intensity,
 		Position center
 	) {
+		// All symmetric points with respect to the eight octants 
 		Position[] allSymmetricPos = new Position[] {
 			new Position(pos.r, pos.c),
 			new Position(pos.c, pos.r),
@@ -155,6 +190,8 @@ public class CircleDrawer {
 			new Position(-pos.r, pos.c)
 		};
 		
+		// Add all the symmetric positions after translating by
+		// the center coordinates
 		for(Position symmetricPos : allSymmetricPos) {
 			pixels.add(new Pixel(
 				new Position(
@@ -174,25 +211,40 @@ public class CircleDrawer {
 		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
 		
+		// Get radius after rounding to nearest integer
 		int rad = (int) Math.round(radius.radius);
+		
+		// Initial Position
 		Position pos = new Position(0, rad);
+		
+		// Initial Decision Parameter
 		int decisionParam = 1 - rad;
 		
+		// Add all cols based on symmetry
 		fillSymmetric(pixels, pos, intensity, center);
 
 		while(pos.c > pos.r) {
 			
+			// If decision parameter is less than zero, then
+			// select East (E)
 			if(decisionParam < 0)
 				decisionParam += 2 * pos.r + 3;
-			else {
+			
+			else {	// If decision parameter is greater than or equal
+					// to zero, then select South East (SE)
+				
 				decisionParam += 2 * pos.r - 2 * pos.c + 5;
 				pos.c --;
 			}
 			
+			// Increment row coordinate
 			pos.r ++;
+			
+			// Add all cols based on symmetry
 			fillSymmetric(pixels, pos, intensity, center);
 		}
 		
+		// Return the computed pixel arraylists
 		return pixels;
 	}
 	
@@ -202,6 +254,7 @@ public class CircleDrawer {
 		Intensity intensity,
 		Position center
 	) {
+		// All symmetric points at the right of the vertical axiss
 		Position[] allFillSymmetricPos = new Position[] {
 			new Position(pos.r, pos.c),
 			new Position(pos.c, pos.r),
@@ -209,6 +262,8 @@ public class CircleDrawer {
 			new Position(pos.r, -pos.c)
 		};
 		
+		// For each point in allFillSymmetricPos construct a column
+		// from the negative of the row val till the positive
 		for(Position symmetricFillPos : allFillSymmetricPos) {
 			for(int r = -symmetricFillPos.r;r <= symmetricFillPos.r;r++) {
 				pixels.add(new Pixel(
