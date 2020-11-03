@@ -1,6 +1,12 @@
 package processing.shape;
 
+import java.util.ArrayList;
+
+import processing.ClientBoardState;
+import processing.CurveBuilder;
 import processing.boardobject.BoardObject;
+import processing.boardobject.CreateOperation;
+import processing.boardobject.IBoardObjectOperation;
 import processing.utility.*;
 
 /**
@@ -28,7 +34,19 @@ public class BoardObjectBuilder {
         Radius radius,
         Intensity intensity
     ) {
-    	return null;
+    	// Get arraylist of pixels of the circle
+    	ArrayList<Pixel> circlePixels = 
+    		CircleDrawer.drawCircle(center, radius, intensity);
+    	
+    	// Perform post processing on the pixels
+    	circlePixels = ShapeHelper.postDrawProcessing(
+    		circlePixels,
+    		ClientBoardState.brushSize,
+    		ClientBoardState.boardDimension
+    	);
+    	
+    	// Draw the circle's pixels
+    	return drawPixels(circlePixels);
     }
     
     /**
@@ -46,7 +64,18 @@ public class BoardObjectBuilder {
         Radius radius,
         Intensity intensity
     ) {
-    	return null;
+    	// Get arraylist of pixels of the filled circle
+    	ArrayList<Pixel> circleFillPixels = 
+    		CircleDrawer.drawCircleFill(center, radius, intensity);
+    	
+    	// Perform post processing on the pixels
+    	circleFillPixels = ShapeHelper.postFillProcessing(
+    		circleFillPixels,
+    		ClientBoardState.boardDimension
+    	);
+    	
+    	// Draw the filled circle's pixels
+    	return drawPixels(circleFillPixels);
     }
     
     /**
@@ -63,7 +92,22 @@ public class BoardObjectBuilder {
         Position bottomRight,
         Intensity intensity
     ) {
-    	return null;
+    	// Get arraylist of pixels of the rectangle
+    	ArrayList<Pixel> rectPixels = RectangleDrawer.drawRectangle(
+    		topLeft, 
+    		bottomRight, 
+    		intensity
+    	);
+    	
+    	// Perform post processing on the pixels
+    	rectPixels = ShapeHelper.postDrawProcessing(
+    		rectPixels,
+    		ClientBoardState.brushSize,
+    		ClientBoardState.boardDimension
+    	);
+    	
+    	// Draw the rectangle's pixels
+    	return drawPixels(rectPixels);
     }
     
     /**
@@ -80,7 +124,21 @@ public class BoardObjectBuilder {
         Position bottomRight,
         Intensity intensity
     ) {
-    	return null;
+    	// Get arraylist of pixels of the filled rectangle
+    	ArrayList<Pixel> rectFillPixels = RectangleDrawer.drawRectangleFill(
+    		topLeft, 
+    		bottomRight, 
+    		intensity
+    	);
+    	
+    	// Perform post processing on the pixels
+    	rectFillPixels = ShapeHelper.postFillProcessing(
+    		rectFillPixels,
+    		ClientBoardState.boardDimension
+    	);
+    	
+    	// Draw the filled rectangle's pixels
+    	return drawPixels(rectFillPixels);
     }
     
     /**
@@ -98,7 +156,23 @@ public class BoardObjectBuilder {
         Position vertC,
         Intensity intensity
     ) {
-    	return null;
+    	// Get arraylist of pixels of the triangle
+    	ArrayList<Pixel> trianglePixels = TriangleDrawer.drawTriangle(
+    		vertA, 
+    		vertB,
+    		vertC,
+    		intensity
+    	);
+    	
+    	// Perform post processing on the pixels
+    	trianglePixels = ShapeHelper.postDrawProcessing(
+			trianglePixels,
+    		ClientBoardState.brushSize,
+    		ClientBoardState.boardDimension
+    	);
+    	
+    	// Draw the triangle's pixels
+    	return drawPixels(trianglePixels);
     }
     
     /**
@@ -115,6 +189,50 @@ public class BoardObjectBuilder {
         Position pointB,
         Intensity intensity
     ) {
-    	return null;
+    	// Get arraylist of pixels of the triangle
+    	ArrayList<Pixel> segmentPixels = LineDrawer.drawSegment(
+			pointA, 
+			pointB,
+    		intensity
+    	);
+    	
+    	// Perform post processing on the pixels
+    	segmentPixels = ShapeHelper.postDrawProcessing(
+			segmentPixels,
+    		ClientBoardState.brushSize,
+    		ClientBoardState.boardDimension
+    	);
+    	
+    	// Draw the line segment's pixels
+    	return drawPixels(segmentPixels);
+    }
+    
+    /**
+     * Draws the provided pixels and constructs a board object
+     * using them 
+     * 
+     * @param pixels ArrayList of pixels
+     * @return Board Object constructed from the provided arraylist of pixels
+     */
+    private static BoardObject drawPixels(ArrayList<Pixel> pixels) {
+    	// Get current time
+    	Timestamp currTime = Timestamp.getCurrentTime();
+    	
+    	// Construct a new Object ID
+    	ObjectId objectId = new ObjectId(
+    		ClientBoardState.userId,
+    		currTime
+    	);
+ 	
+    	// Draw the filled circle and return the Board Object
+    	return CurveBuilder.drawCurve(
+    		pixels,
+    		(IBoardObjectOperation) new CreateOperation(),
+    		objectId,
+    		currTime,
+    		ClientBoardState.userId,
+    		null,
+    		false
+    	);
     }
 }
