@@ -36,19 +36,34 @@ public class LineDrawer {
 	    Position pointB,
 	    Intensity intensity
 	) {
-		// If DDA algorithm is to be used, then use it
-		if(lineAlgorithm == Algorithm.DDA)
-			return digitalDifferentialAnalyser(
-				pointA,
-				pointB,
-				intensity
-			);
-		else // Else if Bresenham algorithm is to be used, then use it
-			return bresenhamLineDraw(
-				pointA,
-				pointB,
-				intensity
-			);
+		// Initialize arraylist of pixels
+		ArrayList<Pixel> pixels = null;
+		
+		switch(lineAlgorithm) {
+			// If DDA algorithm is to be used, then use it
+			case DDA:
+				pixels = digitalDifferentialAnalyser(
+					pointA,
+					pointB,
+					intensity
+				);
+				break;
+			
+			// If Bresenham algorithm is to be used, then use it
+			// (fall through case)
+			case BRESENHAM:
+				
+			// By Default, use Bresenham Algorithm
+			default:
+				pixels = bresenhamLineDraw(
+					pointA,
+					pointB,
+					intensity
+				);
+		}
+		
+		// Return the computed pixel arraylists
+		return pixels;
 	}
 	
 	/**

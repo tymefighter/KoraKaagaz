@@ -104,6 +104,7 @@ public class CircleDrawer {
 				pixels = midPointBasedCircleFill(center, radius, intensity);
 		}
 
+		// Return the computed pixel arraylist
 		return pixels;
 	}
 	
