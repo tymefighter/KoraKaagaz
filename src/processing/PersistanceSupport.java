@@ -13,7 +13,7 @@ import processing.utility.Filepath;
  * saving and retrieving board state from the filesystem
  * 
  * @author Ahmed Zaheer Dadarkar
- * @reviewer Rakesh
+ * @reviewer Rakesh Kumar, Himanshu Jain
  */
 
 public class PersistanceSupport {
