@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+
+import processing.utility.BoardId;
 import processing.utility.Filepath;
 
 /**
@@ -17,18 +19,24 @@ import processing.utility.Filepath;
 public class PersistanceSupport {
 	
 	/**
-	 * Stores the provided Board State as a Serialized
-	 * String at the provided file location
+	 * Stores the board state of the board corresponding to the provided
+	 * Board ID in the file system after serializing it.
+	 * The file containing board state of board given by boardId is named
+	 * "${boardId}.kk"
 	 * 
 	 * @param boardState The board state object
-	 * @param filepath Path where to store the board state
+	 * @param boardId Board ID of the board whose state is to be stored
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 */
 	public static void storeState (
         BoardState boardState,
-        Filepath filepath
+        BoardId boardId
     ) throws IOException, UnsupportedEncodingException {
+		
+		// Construct path from the provided Board ID
+		Filepath boardStatePath = 
+			new Filepath(boardId.toString() + ".kk");
 		
 		// Serialize the board state to obtain a string
 		String boardStateString =
@@ -36,7 +44,7 @@ public class PersistanceSupport {
 		
 		// Create a file corresponding to the path provided
 		// if it does not already exist
-		File boardFile = new File(filepath.toString());
+		File boardFile = new File(boardStatePath.toString());
 		if(!boardFile.exists())
 			boardFile.createNewFile();
 		
@@ -50,20 +58,27 @@ public class PersistanceSupport {
 	}
 	
 	/**
-	 * Loads the Board State from the file containing the
-	 * Serialized String corresponding to the board state
+	 * Loads the Board State from the file containing the Serialized String
+	 * corresponding to the board state.
+	 * The file containing board state of board given by boardId is named
+	 * "${boardId}.kk"
 	 * 
-	 * @param filepath Filepath where the Seerialized String is stored
+	 * @param boardId Board ID of the board whose state is to be retrieveds
 	 * @return the Board State object reconstructed from the Serialized String
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 * @throws ClassNotFoundException
 	 */
     public static BoardState loadState (
-        Filepath filepath
+        BoardId boardId
     ) throws IOException, UnsupportedEncodingException, ClassNotFoundException {
-    	// Get the file corresponding to the path provided
-    	File boardFile = new File(filepath.toString());
+    	
+    	// Construct path from the provided Board ID
+		Filepath boardStatePath = 
+			new Filepath(boardId.toString() + ".kk");
+    	
+    	// Get the file corresponding to the path
+    	File boardFile = new File(boardStatePath.toString());
     	
     	// Read all the bytes from the file and construct the serialized string
     	// using the ISO-8859-1 encoding
