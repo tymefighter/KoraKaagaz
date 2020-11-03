@@ -66,7 +66,7 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
 	) {
-		return devanshCircleFill(center, radius, intensity);
+		return midPointBasedCircleFill(center, radius, intensity);
 	}
 	
 	private static ArrayList<Pixel> midPointCircleDraw(
@@ -124,6 +124,62 @@ public class CircleDrawer {
 				),
 				new Intensity(intensity)
 			));
+		}
+	}
+	
+	private static ArrayList<Pixel> midPointBasedCircleFill(
+		Position center,
+        Radius radius,
+        Intensity intensity
+	) {
+		// Initialize arraylist of pixels
+		ArrayList<Pixel> pixels = new ArrayList<Pixel>();
+		
+		int rad = (int) Math.round(radius.radius);
+		Position pos = new Position(0, rad);
+		int decisionParam = 1 - rad;
+		
+		fillSymmetric(pixels, pos, intensity, center);
+
+		while(pos.c > pos.r) {
+			
+			if(decisionParam < 0)
+				decisionParam += 2 * pos.r + 3;
+			else {
+				decisionParam += 2 * pos.r - 2 * pos.c + 5;
+				pos.c --;
+			}
+			
+			pos.r ++;
+			fillSymmetric(pixels, pos, intensity, center);
+		}
+		
+		return pixels;
+	}
+	
+	private static void fillSymmetric(
+		ArrayList<Pixel> pixels,
+		Position pos,
+		Intensity intensity,
+		Position center
+	) {
+		Position[] allFillSymmetricPos = new Position[] {
+			new Position(pos.r, pos.c),
+			new Position(pos.c, pos.r),
+			new Position(pos.c, -pos.r),
+			new Position(pos.r, -pos.c)
+		};
+		
+		for(Position symmetricFillPos : allFillSymmetricPos) {
+			for(int r = -symmetricFillPos.r;r <= symmetricFillPos.r;r++) {
+				pixels.add(new Pixel(
+					new Position(
+						r + center.r,
+						symmetricFillPos.c + center.c
+					),
+					new Intensity(intensity)
+				));
+			}
 		}
 	}
 	
