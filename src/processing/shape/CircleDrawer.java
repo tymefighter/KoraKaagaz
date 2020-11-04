@@ -28,12 +28,12 @@ public class CircleDrawer {
 		AlgorithmFill.MID_POINT_BASED;
 	
 	/** Sets the algorithm for Circle Boundary to be used */
-	protected static void setAlgorithmCircle(AlgorithmCircle algorithm) {
+	public static void setAlgorithmCircle(AlgorithmCircle algorithm) {
 		circleAlgorithm = algorithm;
 	}
 	
 	/** Sets the algorithm for Circle Boundary to be used */
-	protected static void setAlgorithmFill(AlgorithmFill algorithm) {
+	public static void setAlgorithmFill(AlgorithmFill algorithm) {
 		fillAlgorithm = algorithm;
 	}
 	
@@ -46,7 +46,7 @@ public class CircleDrawer {
 	 * @param intensity Intensity of each pixel of the circle
 	 * @return the arraylist of pixels of the circle
 	 */
-	protected static ArrayList<Pixel> drawCircle(
+	public static ArrayList<Pixel> drawCircle(
 		Position center,
         Radius radius,
         Intensity intensity
@@ -79,7 +79,7 @@ public class CircleDrawer {
 	 * @param intensity Intensity of each pixel of the filled circle
 	 * @return the arraylist of pixels of the filled circle
 	 */
-	protected static ArrayList<Pixel> drawCircleFill(
+	public static ArrayList<Pixel> drawCircleFill(
 		Position center,
         Radius radius,
         Intensity intensity

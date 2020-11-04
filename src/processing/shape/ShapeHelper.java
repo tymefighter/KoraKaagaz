@@ -24,7 +24,7 @@ public class ShapeHelper {
 	 * @param boardDimension Dimension of the board
 	 * @return the post processed pixels
 	 */
-	protected static ArrayList<Pixel> postDrawProcessing(
+	public static ArrayList<Pixel> postDrawProcessing(
 		ArrayList<Pixel> pixels,
 		BrushRadius brushRadius,
 		Dimension boardDimension
@@ -65,7 +65,7 @@ public class ShapeHelper {
 	 * @param boardDimension Dimension of the board
 	 * @return Dimension of the boards
 	 */
-	protected static ArrayList<Pixel> postFillProcessing(
+	public static ArrayList<Pixel> postFillProcessing(
 		ArrayList<Pixel> pixels,
 		Dimension boardDimension
 	) {
