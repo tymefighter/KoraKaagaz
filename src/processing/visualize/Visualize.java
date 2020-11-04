@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 
 import processing.utility.Dimension;
 import processing.utility.Pixel;
@@ -90,9 +89,6 @@ public class Visualize {
 	private static void displayImage(BufferedImage bufferedImage) {
 		// Construct frame in which to display
 		JFrame frame = new JFrame("Visualize");
-		
-		// Exit on Closing the frame
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		
 		// Construct Image Icon using Buffered Image
 		ImageIcon imageIcon = new ImageIcon(bufferedImage);
