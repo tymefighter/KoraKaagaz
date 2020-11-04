@@ -19,7 +19,7 @@ public class LineDrawer {
 		Algorithm.BRESENHAM; 
 	
 	/** Sets the algorithm to be used */
-	protected static void setAlgorithm(Algorithm algorithm) {
+	public static void setAlgorithm(Algorithm algorithm) {
 		lineAlgorithm = algorithm;
 	}
 	
@@ -32,7 +32,7 @@ public class LineDrawer {
 	 * @param intensity Intensity of each point on the segment
 	 * @return The arraylist of pixels of the line segment 
 	 */
-	protected static ArrayList<Pixel> drawSegment(
+	public static ArrayList<Pixel> drawSegment(
 		Position pointA,
 	    Position pointB,
 	    Intensity intensity
