@@ -267,6 +267,8 @@ public class LineDrawer {
 				pos,
 				new Intensity(intensity)
 			));
+			
+			prevRow = pos.r;
 		}
 
 		// Return the computed pixel arraylist
@@ -342,6 +344,8 @@ public class LineDrawer {
 				pos,
 				new Intensity(intensity)
 			));
+			
+			prevCol = pos.c;
 		}
 
 		// Return the computed pixel arraylist
