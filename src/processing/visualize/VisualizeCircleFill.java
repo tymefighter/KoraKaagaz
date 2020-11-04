@@ -3,6 +3,7 @@ package processing.visualize;
 import java.util.ArrayList;
 
 import processing.shape.CircleDrawer;
+import processing.shape.ShapeHelper;
 import processing.utility.*;
 
 public class VisualizeCircleFill {
@@ -17,7 +18,13 @@ public class VisualizeCircleFill {
 			new Radius(50),
 			new Intensity(0, 255, 0)
 		);
+		pixels = ShapeHelper.postDrawProcessing(
+			pixels,
+			new BrushRadius(1),
+			dimension
+		);
 		Visualize.visualize(pixels, dimension);
+		
 		
 		// Mid Point Based Algorithm
 		CircleDrawer.setAlgorithmFill(CircleDrawer.AlgorithmFill.MID_POINT_BASED);
@@ -26,7 +33,11 @@ public class VisualizeCircleFill {
 			new Radius(50),
 			new Intensity(0, 0, 255)
 		);
-		
+		pixels = ShapeHelper.postDrawProcessing(
+			pixels,
+			new BrushRadius(1),
+			dimension
+		);
 		Visualize.visualize(pixels, dimension);
 	}
 }
