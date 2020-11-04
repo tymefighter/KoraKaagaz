@@ -148,7 +148,7 @@ public class LineDrawer {
 	    Position pointB,
 	    Intensity intensity
 	) {
-		int drAbs = Math.abs(pointB.r - pointA.r); // Differnece along row axis
+		int drAbs = Math.abs(pointB.r - pointA.r); // Difference along row axis
 		int dcAbs = Math.abs(pointB.c - pointA.c); // Difference along col axis
 		
 		// Pixel arraylist which must be returned
