@@ -103,7 +103,7 @@ public class LineDrawer {
 		double cInc = dc / (double) steps; // Increment in col direction
 		
 		// Initial Coordinates
-		double r = (double) pointA.r, c = (double) pointB.c;
+		double r = (double) pointA.r, c = (double) pointA.c;
 		
 		// We iterate one more than the number of steps to take
 		// since we must also cover the initial coordinate
