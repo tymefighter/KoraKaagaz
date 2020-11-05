@@ -12,8 +12,8 @@ import processing.utility.*;
 /**
  * Static Circle Drawing Methods
  *
- * @author Ahmed Zaheer Dadarkar
- * @reviewer Rakesh Kumar
+ * @author Ahmed Zaheer Dadarkar, Rakesh Kumar
+ * @reviewer Rakesh Kumar, Ahmed Zaheer Dadarkar
  */
 
 public class CircleDrawer {
@@ -337,6 +337,17 @@ public class CircleDrawer {
 		return x * x;
 	}
 	
+	/**
+	 * Draws a Filled Circle based on the center and radius provided
+	 * using the BFS algorithm
+	 * 
+	 * @author Rakesh Kumar
+	 * 
+	 * @param center Center of the filled circle
+	 * @param radius Radius of the filled circle
+	 * @param intensity Intensity of each pixel of the filled circle
+	 * @return the arraylist of pixels of the filled circle
+	 */
 	private static ArrayList <Pixel> bfsCircleFill(
 			Position center,
 	        Radius radius,
