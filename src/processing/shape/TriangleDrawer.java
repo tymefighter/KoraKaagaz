@@ -151,7 +151,7 @@ public class TriangleDrawer {
 				int r = dr.get(d) + front.r;
 				int c = dc.get(d) + front.c;
 				Position pos = new Position(r, c);
-				if (visitPos.contains(pos) == true)
+				if (visitPos.contains(pos))
 					continue;
 				if (isInside(vertA, vertB, vertC, pos)) {
 					visitPos.add(pos);
@@ -167,4 +167,5 @@ public class TriangleDrawer {
 
 		return pixels;
 	}
+	
 }
