@@ -19,28 +19,24 @@ import processing.utility.Filepath;
 public class PersistanceSupport {
 	
 	/**
-	 * Stores the board state of the board corresponding to the provided
-	 * Board ID in the file system after serializing it.
+	 * Stores the board state string of the board corresponding to the
+	 * provided Board ID in the file system after serializing it.
 	 * The file containing board state of board given by boardId is named
 	 * "${boardId}.kk"
 	 * 
-	 * @param boardState The board state object
+	 * @param boardStateString The board state String
 	 * @param boardId Board ID of the board whose state is to be stored
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 */
-	public static void storeState (
-        BoardState boardState,
+	public static void storeStateString (
+        String boardStateString,
         BoardId boardId
     ) throws IOException, UnsupportedEncodingException {
 		
 		// Construct path from the provided Board ID
 		Filepath boardStatePath = 
 			new Filepath(boardId.toString() + ".kk");
-		
-		// Serialize the board state to obtain a string
-		String boardStateString =
-			Serialize.serialize(boardState);
 		
 		// Create a file corresponding to the path provided
 		// if it does not already exist
@@ -58,19 +54,18 @@ public class PersistanceSupport {
 	}
 	
 	/**
-	 * Loads the Board State from the file containing the Serialized String
+	 * Loads the Board State String from the file containing the Serialized String
 	 * corresponding to the board state.
 	 * The file containing board state of board given by boardId is named
 	 * "${boardId}.kk"
 	 * 
 	 * @param boardId Board ID of the board whose state is to be retrieveds
-	 * @return the Board State object reconstructed from the Serialized String
-	 * stored in the Filesystem
+	 * @return the Board State String
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
 	 * @throws ClassNotFoundException
 	 */
-    public static BoardState loadState (
+    public static String loadStateString (
         BoardId boardId
     ) throws IOException, UnsupportedEncodingException, ClassNotFoundException {
     	
@@ -86,11 +81,7 @@ public class PersistanceSupport {
     	byte[] boardStateBytes = Files.readAllBytes(boardFile.toPath());
     	String boardStateString = new String(boardStateBytes, "ISO-8859-1");
     	
-    	// Get the board state from the serialized string
-    	BoardState boardState =
-    		(BoardState) Serialize.deSerialize(boardStateString);
-    	
-    	// Return the constructed board state
-    	return boardState;
+    	// Return the String
+    	return boardStateString;
     }
 }
