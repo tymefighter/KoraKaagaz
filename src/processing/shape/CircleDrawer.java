@@ -1,6 +1,11 @@
 package processing.shape;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 import processing.utility.*;
 
@@ -17,7 +22,7 @@ public class CircleDrawer {
 	public enum AlgorithmCircle {MID_POINT};
 	
 	/** Algorithm for Circle Fill */
-	public enum AlgorithmFill {MID_POINT_BASED, DEVANSH};
+	public enum AlgorithmFill {MID_POINT_BASED, DEVANSH, BFS_FILL};
 	
 	/** Variable storing the algorithm for Circle Boundary */
 	private static AlgorithmCircle circleAlgorithm =
@@ -94,6 +99,11 @@ public class CircleDrawer {
 			// Filling Algorithm
 			case DEVANSH:
 				pixels = devanshCircleFill(center, radius, intensity);
+				break;
+				
+			// If BFS method was selected, use BFS fill Circle algorithm
+			case BFS_FILL:
+				pixels = bfsCircleFill(center, radius, intensity);
 				break;
 			
 			// If Mid Point Based method was selected, use Mid Point
@@ -326,4 +336,62 @@ public class CircleDrawer {
 	private static int square(int x) {
 		return x * x;
 	}
+	
+	private static ArrayList <Pixel> bfsCircleFill(
+			Position center,
+	        Radius radius,
+	        Intensity intensity
+		) {
+		// BFS queue
+		Queue <Position> queuePos = new LinkedList <Position> ();
+		ArrayList <Pixel> pixels = new ArrayList <Pixel> ();
+		
+		// set for keeping the visited positions
+		Set <Position> visitPos = new HashSet <Position> ();
+		
+		// BFS will start with center as the source position
+		queuePos.add(center);
+		visitPos.add(center);
+		
+		int rad = (int) Math.round(radius.radius);
+		// Compute square of radius
+		int radSquare = rad * rad;
+		
+		/**
+		 * dr, dc are changes in rows and cols respectively.
+		 * These are used to find the adjacent positions
+		 */
+		ArrayList <Integer> dr = new ArrayList <Integer> (
+				Arrays.asList(-1, -1, -1, 0, 0, 1, 1, 1)
+				); 
+		ArrayList <Integer> dc = new ArrayList <Integer>(
+				Arrays.asList(-1, 0, 1, -1, 1, -1, 0, 1)
+				);
+
+		while (queuePos.size() > 0) {
+			Position front = queuePos.remove();
+			
+			// pushes the adjacent valid unvisited positions into the queue
+			for (Integer d = 0; d < dr.size(); d++) {
+				int r = dr.get(d) + front.r;
+				int c = dc.get(d) + front.c;
+				Position pos = new Position(r, c);
+				if (visitPos.contains(pos))
+					continue;
+				// Checks whether (r, c) is inside the circle or not
+				if (square(r - center.r) + square(c - center.c) <= radSquare) {
+					visitPos.add(pos);
+					queuePos.add(pos);
+				}
+						
+			}
+		}
+		
+		// filled circle pixels
+		for (Position pos : visitPos)
+			pixels.add(new Pixel(pos, new Intensity (intensity)));
+
+		return pixels;
+	}
+	
 }
