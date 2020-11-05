@@ -78,9 +78,9 @@ public class TriangleDrawer {
 	 * 
 	 * @author Rakesh Kumar
 	 * 
-	 * @param vertA
-	 * @param vertB
-	 * @param vertC
+	 * @param vertA First vertex of the triangle
+	 * @param vertB Second vertex of the triangle
+	 * @param vertC Third vertex of the triangle
 	 * @param pos position
 	 * @return
 	 */
@@ -105,10 +105,10 @@ public class TriangleDrawer {
 	 * 
 	 * @author Rakesh Kumar
 	 * 
-	 * @param vertA
-	 * @param vertB
-	 * @param vertC
-	 * @param intensity
+	 * @param vertA First vertex of the triangle
+	 * @param vertB Second vertex of the triangle
+	 * @param vertC Third vertex of the triangle
+	 * @param intensity Intensity of each point on the triangle
 	 * @return filled triangle with the given intensity
 	 */
 	public static ArrayList <Pixel> drawTriangleFill (
