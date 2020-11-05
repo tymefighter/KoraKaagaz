@@ -1,5 +1,12 @@
 package processing.visualize;
 
+/**
+ * Visualize Circle Filling Algorithm Results
+ * 
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
+
 import java.util.ArrayList;
 
 import processing.shape.CircleDrawer;

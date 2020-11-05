@@ -1,5 +1,12 @@
 package processing.visualize;
 
+/**
+ * Visualize Triangle Drawing Algorithm Results
+ * 
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
+
 import java.util.ArrayList;
 
 import processing.shape.TriangleDrawer;

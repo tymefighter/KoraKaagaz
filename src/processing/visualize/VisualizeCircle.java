@@ -1,5 +1,12 @@
 package processing.visualize;
 
+/**
+ * Visualize Circle Drawing Algorithm Result
+ * 
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
+
 import java.util.ArrayList;
 
 import processing.shape.CircleDrawer;

@@ -1,5 +1,12 @@
 package processing.visualize;
 
+/**
+ * Visualize Rectangle Filling Algorithm Result
+ * 
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
+
 import java.util.ArrayList;
 
 import processing.shape.RectangleDrawer;

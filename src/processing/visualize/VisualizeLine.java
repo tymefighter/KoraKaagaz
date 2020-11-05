@@ -1,5 +1,12 @@
 package processing.visualize;
 
+/**
+ * Visualize Line Drawing Algorithm Results
+ * 
+ * @author Ahmed Zaheer Dadarkar
+ * @reviewer Rakesh Kumar
+ */
+
 import java.util.ArrayList;
 
 import processing.shape.LineDrawer;
@@ -11,6 +18,7 @@ public class VisualizeLine {
 		ArrayList<Pixel> pixels = null;
 		Dimension dimension = new Dimension(1000, 1000);
 		
+		// DDA Algorithm
 		LineDrawer.setAlgorithm(LineDrawer.Algorithm.DDA);
 		pixels = LineDrawer.drawSegment(
 			new Position(0, 0),
@@ -26,7 +34,7 @@ public class VisualizeLine {
 		
 		Visualize.visualize(pixels, dimension);
 		
-		
+		// Bresenham Algorithm
 		LineDrawer.setAlgorithm(LineDrawer.Algorithm.BRESENHAM);
 		pixels = LineDrawer.drawSegment(
 			new Position(0, 0),
