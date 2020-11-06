@@ -2,11 +2,8 @@ package processing.shape;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Set;
-
 import processing.utility.*;
 
 /**
@@ -360,16 +357,20 @@ public class CircleDrawer {
 		
 		// BFS queue
 		Queue <Position> queuePos = new LinkedList <Position> ();
+		// stores the filled circle pixels
 		ArrayList <Pixel> pixels = new ArrayList <Pixel> ();
 		
-		// set for keeping the visited positions
-		//Set <Position> visitPos = new HashSet <Position> ();
-		Boolean[][] visitPos = new Boolean[rad << 1][rad << 1];
+		/**
+		 *  2D boolean array for marking the visited positions
+		 *  Size of the array is the size of the smallest square covering the circle 
+		 *  The circle is shifted such that the positive axes are its tangents
+		 */
+		boolean[][] visitPos = new boolean[(rad << 1) + 1][(rad << 1) + 1];
 		
-		System.out.print(visitPos[1][1]);
 		
 		// BFS will start with center as the source position
 		queuePos.add(center);
+		// shifted circle center
 		visitPos[rad][rad] = true;
 		pixels.add(new Pixel(new Position(center), new Intensity(intensity)));
 		
@@ -396,6 +397,7 @@ public class CircleDrawer {
 				if (square(r - center.r) + square(c - center.c) > radSquare)
 					continue;
 				if (visitPos[r - center.r + rad][c - center.c + rad] == false) {
+					// if the position is not visited
 					visitPos[r - center.r + rad][c - center.c + rad] = true;
 					queuePos.add(pos);
 					pixels.add(new Pixel(pos, new Intensity(intensity)));
@@ -405,7 +407,6 @@ public class CircleDrawer {
 		}
 		
 		// filled circle pixels
-
 		return pixels;
 	}
 }
