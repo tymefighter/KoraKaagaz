@@ -353,20 +353,25 @@ public class CircleDrawer {
 	        Radius radius,
 	        Intensity intensity
 		) {
+		
+		int rad = (int) Math.round(radius.radius);
+		// Compute square of radius
+		int radSquare = rad * rad;
+		
 		// BFS queue
 		Queue <Position> queuePos = new LinkedList <Position> ();
 		ArrayList <Pixel> pixels = new ArrayList <Pixel> ();
 		
 		// set for keeping the visited positions
-		Set <Position> visitPos = new HashSet <Position> ();
+		//Set <Position> visitPos = new HashSet <Position> ();
+		Boolean[][] visitPos = new Boolean[rad << 1][rad << 1];
+		
+		System.out.print(visitPos[1][1]);
 		
 		// BFS will start with center as the source position
 		queuePos.add(center);
-		visitPos.add(center);
-		
-		int rad = (int) Math.round(radius.radius);
-		// Compute square of radius
-		int radSquare = rad * rad;
+		visitPos[rad][rad] = true;
+		pixels.add(new Pixel(new Position(center), new Intensity(intensity)));
 		
 		/**
 		 * dr, dc are changes in rows and cols respectively.
@@ -387,22 +392,20 @@ public class CircleDrawer {
 				int r = dr.get(d) + front.r;
 				int c = dc.get(d) + front.c;
 				Position pos = new Position(r, c);
-				if (visitPos.contains(pos))
-					continue;
 				// Checks whether (r, c) is inside the circle or not
-				if (square(r - center.r) + square(c - center.c) <= radSquare) {
-					visitPos.add(pos);
+				if (square(r - center.r) + square(c - center.c) > radSquare)
+					continue;
+				if (visitPos[r - center.r + rad][c - center.c + rad] == false) {
+					visitPos[r - center.r + rad][c - center.c + rad] = true;
 					queuePos.add(pos);
+					pixels.add(new Pixel(pos, new Intensity(intensity)));
 				}
 						
 			}
 		}
 		
 		// filled circle pixels
-		for (Position pos : visitPos)
-			pixels.add(new Pixel(pos, new Intensity (intensity)));
 
 		return pixels;
 	}
-	
 }
