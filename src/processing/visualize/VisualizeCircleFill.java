@@ -40,9 +40,8 @@ public class VisualizeCircleFill {
 			new Radius(50),
 			new Intensity(0, 0, 255)
 		);
-		pixels = ShapeHelper.postDrawProcessing(
+		pixels = ShapeHelper.postFillProcessing(
 			pixels,
-			new BrushRadius(1),
 			dimension
 		);
 		Visualize.visualize(pixels, dimension);
