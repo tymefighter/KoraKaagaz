@@ -38,8 +38,14 @@ public class Username {
     @Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Username)
-			return username == ((Username)obj).username;
+			return username.equals(((Username)obj).username);
 		else
 			return false;
+	}
+    
+    /** HashCode Method */
+	@Override
+	public int hashCode() {
+		return username.hashCode();
 	}
 }

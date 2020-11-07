@@ -51,8 +51,14 @@ public class UserId {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof UserId)
-			return userId == ((UserId)obj).userId;
+			return userId.equals(((UserId)obj).userId);
 		else
 			return false;
+	}
+	
+	/** HashCode Method */
+	@Override
+	public int hashCode() {
+		return userId.hashCode();
 	}
 }
