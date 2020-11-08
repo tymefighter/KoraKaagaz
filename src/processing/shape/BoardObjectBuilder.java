@@ -8,6 +8,10 @@ import processing.boardobject.BoardObject;
 import processing.boardobject.CreateOperation;
 import processing.boardobject.IBoardObjectOperation;
 import processing.utility.*;
+import infrastructure.validation.logger.LoggerFactory;
+import infrastructure.validation.logger.ILogger;
+import infrastructure.validation.logger.LogLevel;
+import infrastructure.validation.logger.ModuleID;
 
 /**
  * Static methods for constructing board objects from shapes and
@@ -34,9 +38,19 @@ public class BoardObjectBuilder {
         Radius radius,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Circle");
+    	
     	// Get arraylist of pixels of the circle
     	ArrayList<Pixel> circlePixels = 
     		CircleDrawer.drawCircle(center, radius, intensity);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Post Processing the Drawn Circle"
+    	);
     	
     	// Perform post processing on the pixels
     	circlePixels = ShapeHelper.postDrawProcessing(
@@ -64,9 +78,19 @@ public class BoardObjectBuilder {
         Radius radius,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Filled Circle");
+    	
     	// Get arraylist of pixels of the filled circle
     	ArrayList<Pixel> circleFillPixels = 
     		CircleDrawer.drawCircleFill(center, radius, intensity);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Post Processing the Filled Circle"
+    	);
     	
     	// Perform post processing on the pixels
     	circleFillPixels = ShapeHelper.postFillProcessing(
@@ -92,11 +116,21 @@ public class BoardObjectBuilder {
         Position bottomRight,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Rectangle");
+    	
     	// Get arraylist of pixels of the rectangle
     	ArrayList<Pixel> rectPixels = RectangleDrawer.drawRectangle(
     		topLeft, 
     		bottomRight, 
     		intensity
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Post Processing the Rectangle"
     	);
     	
     	// Perform post processing on the pixels
@@ -124,11 +158,21 @@ public class BoardObjectBuilder {
         Position bottomRight,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Filled Rectangle");
+    	
     	// Get arraylist of pixels of the filled rectangle
     	ArrayList<Pixel> rectFillPixels = RectangleDrawer.drawRectangleFill(
     		topLeft, 
     		bottomRight, 
     		intensity
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Post Processing the Filled Rectangle"
     	);
     	
     	// Perform post processing on the pixels
@@ -156,12 +200,22 @@ public class BoardObjectBuilder {
         Position vertC,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Triangle");
+    	
     	// Get arraylist of pixels of the triangle
     	ArrayList<Pixel> trianglePixels = TriangleDrawer.drawTriangle(
     		vertA, 
     		vertB,
     		vertC,
     		intensity
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Post Processing the Triangle"
     	);
     	
     	// Perform post processing on the pixels
@@ -189,11 +243,21 @@ public class BoardObjectBuilder {
         Position pointB,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Line");
+    	
     	// Get arraylist of pixels of the triangle
     	ArrayList<Pixel> segmentPixels = LineDrawer.drawSegment(
 			pointA, 
 			pointB,
     		intensity
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Post Processing the Line"
     	);
     	
     	// Perform post processing on the pixels

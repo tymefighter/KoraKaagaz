@@ -3,6 +3,10 @@ package processing.shape;
 import java.util.ArrayList;
 
 import processing.utility.*;
+import infrastructure.validation.logger.LoggerFactory;
+import infrastructure.validation.logger.ILogger;
+import infrastructure.validation.logger.LogLevel;
+import infrastructure.validation.logger.ModuleID;
 
 /**
  * Static Circle Drawing Methods
@@ -63,6 +67,11 @@ public class CircleDrawer {
 				
 			// By default, use mid point based circle filling algorithm
 			default:
+				LoggerFactory.getLoggerInstance().log(
+					ModuleID.PROCESSING, 
+					LogLevel.INFO, 
+					"Using Mid Point Circle Drawing Algorithm"
+				);
 				pixels = midPointCircleDraw(center, radius, intensity);
 		}
 		
@@ -84,6 +93,8 @@ public class CircleDrawer {
         Radius radius,
         Intensity intensity
 	) {
+		ILogger logger = LoggerFactory.getLoggerInstance();
+		
 		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = null;
 		
@@ -93,6 +104,11 @@ public class CircleDrawer {
 			// If Devansh method was selected, use Devansh Circle
 			// Filling Algorithm
 			case DEVANSH:
+				logger.log(
+					ModuleID.PROCESSING, 
+					LogLevel.INFO, 
+					"Using Devansh Circle Filling Algorithm"
+				);
 				pixels = devanshCircleFill(center, radius, intensity);
 				break;
 			
@@ -103,6 +119,11 @@ public class CircleDrawer {
 			// By Default, use Mid Point
 			// Based Filling Algorithm
 			default:
+				logger.log(
+					ModuleID.PROCESSING, 
+					LogLevel.INFO, 
+					"Using Mid Point Based Circle Filling Algorithm"
+				);
 				pixels = midPointBasedCircleFill(center, radius, intensity);
 		}
 

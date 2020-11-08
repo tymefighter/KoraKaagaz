@@ -2,6 +2,10 @@ package processing.shape;
 
 import java.util.ArrayList;
 import processing.utility.*;
+import infrastructure.validation.logger.LoggerFactory;
+import infrastructure.validation.logger.ILogger;
+import infrastructure.validation.logger.LogLevel;
+import infrastructure.validation.logger.ModuleID;
 
 /**
  * Static Line Segment Drawing Methods
@@ -37,12 +41,19 @@ public class LineDrawer {
 	    Position pointB,
 	    Intensity intensity
 	) {
+		ILogger logger = LoggerFactory.getLoggerInstance();
+		
 		// Initialize arraylist of pixels
 		ArrayList<Pixel> pixels = null;
 		
 		switch(lineAlgorithm) {
 			// If DDA algorithm is to be used, then use it
 			case DDA:
+				logger.log(
+					ModuleID.PROCESSING, 
+					LogLevel.INFO, 
+					"Using DDA Line Drawing Algorithm"
+				);
 				pixels = digitalDifferentialAnalyser(
 					pointA,
 					pointB,
@@ -56,6 +67,11 @@ public class LineDrawer {
 				
 			// By Default, use Bresenham Algorithm
 			default:
+				logger.log(
+					ModuleID.PROCESSING, 
+					LogLevel.INFO, 
+					"Using Bresenham Line Drawing Algorithm"
+				);
 				pixels = bresenhamLineDraw(
 					pointA,
 					pointB,
