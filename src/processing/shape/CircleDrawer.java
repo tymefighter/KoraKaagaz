@@ -120,10 +120,10 @@ public class CircleDrawer {
 			case BFS_FILL:
 				pixels = bfsCircleFill(center, radius, intensity);
 				logger.log(
-						ModuleID.PROCESSING, 
-						LogLevel.INFO, 
-						"[#" + Thread.currentThread().getId() + "] "
-						+ "Using BFS based Circle Filling Algorithm"
+					ModuleID.PROCESSING, 
+					LogLevel.INFO, 
+					"[#" + Thread.currentThread().getId() + "] "
+					+ "Using BFS based Circle Filling Algorithm"
 					);
 				break;
 			
