@@ -8,6 +8,10 @@ import processing.boardobject.BoardObject;
 import processing.boardobject.CreateOperation;
 import processing.boardobject.IBoardObjectOperation;
 import processing.utility.*;
+import infrastructure.validation.logger.LoggerFactory;
+import infrastructure.validation.logger.ILogger;
+import infrastructure.validation.logger.LogLevel;
+import infrastructure.validation.logger.ModuleID;
 
 /**
  * Static methods for constructing board objects from shapes and
@@ -34,15 +38,31 @@ public class BoardObjectBuilder {
         Radius radius,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Circle");
+    	
     	// Get arraylist of pixels of the circle
     	ArrayList<Pixel> circlePixels = 
     		CircleDrawer.drawCircle(center, radius, intensity);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Circle Pixels Constructed"
+    	);
     	
     	// Perform post processing on the pixels
     	circlePixels = ShapeHelper.postDrawProcessing(
     		circlePixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Circle Post Processing Completed"
     	);
     	
     	// Draw the circle's pixels
@@ -64,14 +84,30 @@ public class BoardObjectBuilder {
         Radius radius,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Filled Circle");
+    	
     	// Get arraylist of pixels of the filled circle
     	ArrayList<Pixel> circleFillPixels = 
     		CircleDrawer.drawCircleFill(center, radius, intensity);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Filled Circle Pixels Constructed"
+    	);
     	
     	// Perform post processing on the pixels
     	circleFillPixels = ShapeHelper.postFillProcessing(
     		circleFillPixels,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Filled Circle Post Processing Completed"
     	);
     	
     	// Draw the filled circle's pixels
@@ -92,6 +128,10 @@ public class BoardObjectBuilder {
         Position bottomRight,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Rectangle");
+    	
     	// Get arraylist of pixels of the rectangle
     	ArrayList<Pixel> rectPixels = RectangleDrawer.drawRectangle(
     		topLeft, 
@@ -99,11 +139,23 @@ public class BoardObjectBuilder {
     		intensity
     	);
     	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Rectangle Pixels Constructed"
+    	);
+    	
     	// Perform post processing on the pixels
     	rectPixels = ShapeHelper.postDrawProcessing(
     		rectPixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Rectangle Post Processing Completed"
     	);
     	
     	// Draw the rectangle's pixels
@@ -124,6 +176,10 @@ public class BoardObjectBuilder {
         Position bottomRight,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Filled Rectangle");
+    	
     	// Get arraylist of pixels of the filled rectangle
     	ArrayList<Pixel> rectFillPixels = RectangleDrawer.drawRectangleFill(
     		topLeft, 
@@ -131,10 +187,22 @@ public class BoardObjectBuilder {
     		intensity
     	);
     	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Filled Rectangle Pixels Constructed"
+    	);
+    	
     	// Perform post processing on the pixels
     	rectFillPixels = ShapeHelper.postFillProcessing(
     		rectFillPixels,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Rectangle Post Processing Completed"
     	);
     	
     	// Draw the filled rectangle's pixels
@@ -156,6 +224,10 @@ public class BoardObjectBuilder {
         Position vertC,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Triangle");
+    	
     	// Get arraylist of pixels of the triangle
     	ArrayList<Pixel> trianglePixels = TriangleDrawer.drawTriangle(
     		vertA, 
@@ -164,11 +236,23 @@ public class BoardObjectBuilder {
     		intensity
     	);
     	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Triangle Pixels Constructed"
+    	);
+    	
     	// Perform post processing on the pixels
     	trianglePixels = ShapeHelper.postDrawProcessing(
 			trianglePixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Triangle Post Processing Completed"
     	);
     	
     	// Draw the triangle's pixels
@@ -189,6 +273,10 @@ public class BoardObjectBuilder {
         Position pointB,
         Intensity intensity
     ) {
+    	ILogger logger = LoggerFactory.getLoggerInstance();
+    	
+    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Line");
+    	
     	// Get arraylist of pixels of the triangle
     	ArrayList<Pixel> segmentPixels = LineDrawer.drawSegment(
 			pointA, 
@@ -196,11 +284,23 @@ public class BoardObjectBuilder {
     		intensity
     	);
     	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Line Pixels Constructed"
+    	);
+    	
     	// Perform post processing on the pixels
     	segmentPixels = ShapeHelper.postDrawProcessing(
 			segmentPixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Line Post Processing Completed"
     	);
     	
     	// Draw the line segment's pixels
