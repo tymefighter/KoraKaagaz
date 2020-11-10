@@ -49,7 +49,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Circle Pixels Constructed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Circle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -62,7 +63,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Circle Post Processing Completed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Circle Post Processing Completed"
     	);
     	
     	// Draw the circle's pixels
@@ -95,7 +97,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Filled Circle Pixels Constructed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Filled Circle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -107,7 +110,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Filled Circle Post Processing Completed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Filled Circle Post Processing Completed"
     	);
     	
     	// Draw the filled circle's pixels
@@ -142,7 +146,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Rectangle Pixels Constructed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Rectangle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -155,7 +160,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Rectangle Post Processing Completed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Rectangle Post Processing Completed"
     	);
     	
     	// Draw the rectangle's pixels
@@ -190,7 +196,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Filled Rectangle Pixels Constructed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Filled Rectangle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -202,7 +209,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Rectangle Post Processing Completed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Rectangle Post Processing Completed"
     	);
     	
     	// Draw the filled rectangle's pixels
@@ -252,7 +260,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Triangle Post Processing Completed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Triangle Post Processing Completed"
     	);
     	
     	// Draw the triangle's pixels
@@ -287,7 +296,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Line Pixels Constructed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Line Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -300,7 +310,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Line Post Processing Completed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Line Post Processing Completed"
     	);
     	
     	// Draw the line segment's pixels

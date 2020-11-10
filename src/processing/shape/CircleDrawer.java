@@ -70,7 +70,8 @@ public class CircleDrawer {
 				LoggerFactory.getLoggerInstance().log(
 					ModuleID.PROCESSING, 
 					LogLevel.INFO, 
-					"Using Mid Point Circle Drawing Algorithm"
+					"[#" + Thread.currentThread().getId() + "] "
+					+ "Using Mid Point Circle Drawing Algorithm"
 				);
 				pixels = midPointCircleDraw(center, radius, intensity);
 		}
@@ -107,7 +108,8 @@ public class CircleDrawer {
 				logger.log(
 					ModuleID.PROCESSING, 
 					LogLevel.INFO, 
-					"Using Devansh Circle Filling Algorithm"
+					"[#" + Thread.currentThread().getId() + "] "
+					+ "Using Devansh Circle Filling Algorithm"
 				);
 				pixels = devanshCircleFill(center, radius, intensity);
 				break;
@@ -122,7 +124,8 @@ public class CircleDrawer {
 				logger.log(
 					ModuleID.PROCESSING, 
 					LogLevel.INFO, 
-					"Using Mid Point Based Circle Filling Algorithm"
+					"[#" + Thread.currentThread().getId() + "] "
+					+ "Using Mid Point Based Circle Filling Algorithm"
 				);
 				pixels = midPointBasedCircleFill(center, radius, intensity);
 		}
