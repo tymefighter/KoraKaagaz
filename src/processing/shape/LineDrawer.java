@@ -52,7 +52,8 @@ public class LineDrawer {
 				logger.log(
 					ModuleID.PROCESSING, 
 					LogLevel.INFO, 
-					"Using DDA Line Drawing Algorithm"
+					"[#" + Thread.currentThread().getId() + "] "
+					+ "Using DDA Line Drawing Algorithm"
 				);
 				pixels = digitalDifferentialAnalyser(
 					pointA,
@@ -70,7 +71,8 @@ public class LineDrawer {
 				logger.log(
 					ModuleID.PROCESSING, 
 					LogLevel.INFO, 
-					"Using Bresenham Line Drawing Algorithm"
+					"[#" + Thread.currentThread().getId() + "] "
+					+ "Using Bresenham Line Drawing Algorithm"
 				);
 				pixels = bresenhamLineDraw(
 					pointA,
