@@ -119,6 +119,12 @@ public class CircleDrawer {
 			// If BFS method was selected, use BFS fill Circle algorithm
 			case BFS_FILL:
 				pixels = bfsCircleFill(center, radius, intensity);
+				logger.log(
+						ModuleID.PROCESSING, 
+						LogLevel.INFO, 
+						"[#" + Thread.currentThread().getId() + "] "
+						+ "Using BFS based Circle Filling Algorithm"
+					);
 				break;
 			
 			// If Mid Point Based method was selected, use Mid Point
