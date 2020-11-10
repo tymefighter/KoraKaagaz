@@ -49,7 +49,7 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Post Processing the Drawn Circle"
+			"Circle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -57,6 +57,12 @@ public class BoardObjectBuilder {
     		circlePixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Circle Post Processing Completed"
     	);
     	
     	// Draw the circle's pixels
@@ -89,13 +95,19 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Post Processing the Filled Circle"
+			"Filled Circle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
     	circleFillPixels = ShapeHelper.postFillProcessing(
     		circleFillPixels,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Filled Circle Post Processing Completed"
     	);
     	
     	// Draw the filled circle's pixels
@@ -130,7 +142,7 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Post Processing the Rectangle"
+			"Rectangle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -138,6 +150,12 @@ public class BoardObjectBuilder {
     		rectPixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Rectangle Post Processing Completed"
     	);
     	
     	// Draw the rectangle's pixels
@@ -172,13 +190,19 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Post Processing the Filled Rectangle"
+			"Filled Rectangle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
     	rectFillPixels = ShapeHelper.postFillProcessing(
     		rectFillPixels,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Rectangle Post Processing Completed"
     	);
     	
     	// Draw the filled rectangle's pixels
@@ -215,7 +239,7 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Post Processing the Triangle"
+			"Triangle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -223,6 +247,12 @@ public class BoardObjectBuilder {
 			trianglePixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Triangle Post Processing Completed"
     	);
     	
     	// Draw the triangle's pixels
@@ -257,7 +287,7 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Post Processing the Line"
+			"Line Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -265,6 +295,12 @@ public class BoardObjectBuilder {
 			segmentPixels,
     		ClientBoardState.brushSize,
     		ClientBoardState.boardDimension
+    	);
+    	
+    	logger.log(
+			ModuleID.PROCESSING, 
+			LogLevel.INFO, 
+			"Line Post Processing Completed"
     	);
     	
     	// Draw the line segment's pixels
