@@ -75,8 +75,9 @@ public class BoardObject implements Serializable {
     ) {
     	LoggerFactory.getLoggerInstance().log(
 			ModuleID.PROCESSING, 
-			LogLevel.INFO, 
-			"Constructing Board Object"
+			LogLevel.INFO,
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Constructing Board Object"
 		);
     	
     	this.pixels = pixels;
@@ -92,7 +93,8 @@ public class BoardObject implements Serializable {
     	LoggerFactory.getLoggerInstance().log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Get Operation from the Board Object"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Get Operation from the Board Object"
 		);
     	return boardOp;
     }
@@ -106,7 +108,8 @@ public class BoardObject implements Serializable {
     	LoggerFactory.getLoggerInstance().log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Set Operation of the Board Object"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Set Operation of the Board Object"
 		);
     	this.boardOp = boardOp;    		
     }
@@ -116,7 +119,8 @@ public class BoardObject implements Serializable {
     	LoggerFactory.getLoggerInstance().log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Get Pixels from the Board Object"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Get Pixels from the Board Object"
 		);
     	return pixels;
     }
@@ -126,7 +130,8 @@ public class BoardObject implements Serializable {
     	LoggerFactory.getLoggerInstance().log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Get Positions from the Board Object"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Get Positions from the Board Object"
 		);
     	
     	// Construct position arraylist
@@ -144,8 +149,9 @@ public class BoardObject implements Serializable {
     public void setPixels (ArrayList <Pixel> pixels) {
     	LoggerFactory.getLoggerInstance().log(
 			ModuleID.PROCESSING, 
-			LogLevel.INFO, 
-			"Set Pixels of the Board Object"
+			LogLevel.INFO,
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Set Pixels of the Board Object"
 		);
     	this.pixels = pixels;
     }

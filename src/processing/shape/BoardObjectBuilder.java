@@ -40,7 +40,12 @@ public class BoardObjectBuilder {
     ) {
     	ILogger logger = LoggerFactory.getLoggerInstance();
     	
-    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Circle");
+    	logger.log(
+    		ModuleID.PROCESSING, 
+    		LogLevel.INFO, 
+    		"[#" + Thread.currentThread().getId() + "] "
+			+ "Drawing The Circle"
+    	);
     	
     	// Get arraylist of pixels of the circle
     	ArrayList<Pixel> circlePixels = 
@@ -88,7 +93,12 @@ public class BoardObjectBuilder {
     ) {
     	ILogger logger = LoggerFactory.getLoggerInstance();
     	
-    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Filled Circle");
+    	logger.log(
+    		ModuleID.PROCESSING, 
+    		LogLevel.INFO, 
+    		"[#" + Thread.currentThread().getId() + "] "
+			+ "Drawing The Filled Circle"
+    	);
     	
     	// Get arraylist of pixels of the filled circle
     	ArrayList<Pixel> circleFillPixels = 
@@ -134,7 +144,12 @@ public class BoardObjectBuilder {
     ) {
     	ILogger logger = LoggerFactory.getLoggerInstance();
 	
-    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Rectangle");
+    	logger.log(
+    		ModuleID.PROCESSING, 
+    		LogLevel.INFO, 
+    		"[#" + Thread.currentThread().getId() + "] "
+			+ "Drawing The Rectangle"
+    	);
     	
     	// Get arraylist of pixels of the rectangle
     	ArrayList<Pixel> rectPixels = RectangleDrawer.drawRectangle(
@@ -183,8 +198,13 @@ public class BoardObjectBuilder {
         Intensity intensity
     ) {
     	ILogger logger = LoggerFactory.getLoggerInstance();
-    	
-    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Filled Rectangle");
+
+    	logger.log(
+    		ModuleID.PROCESSING,
+    		LogLevel.INFO, 
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Drawing The Filled Rectangle"
+		);
     	
     	// Get arraylist of pixels of the filled rectangle
     	ArrayList<Pixel> rectFillPixels = RectangleDrawer.drawRectangleFill(
@@ -234,7 +254,12 @@ public class BoardObjectBuilder {
     ) {
     	ILogger logger = LoggerFactory.getLoggerInstance();
     	
-    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Triangle");
+    	logger.log(
+    		ModuleID.PROCESSING, 
+    		LogLevel.INFO, 
+    		"[#" + Thread.currentThread().getId() + "] "
+			+ "Drawing The Triangle"
+    	);
     	
     	// Get arraylist of pixels of the triangle
     	ArrayList<Pixel> trianglePixels = TriangleDrawer.drawTriangle(
@@ -247,7 +272,8 @@ public class BoardObjectBuilder {
     	logger.log(
 			ModuleID.PROCESSING, 
 			LogLevel.INFO, 
-			"Triangle Pixels Constructed"
+			"[#" + Thread.currentThread().getId() + "] "
+			+ "Triangle Pixels Constructed"
     	);
     	
     	// Perform post processing on the pixels
@@ -284,7 +310,12 @@ public class BoardObjectBuilder {
     ) {
     	ILogger logger = LoggerFactory.getLoggerInstance();
     	
-    	logger.log(ModuleID.PROCESSING, LogLevel.INFO, "Drawing The Line");
+    	logger.log(
+    		ModuleID.PROCESSING, 
+    		LogLevel.INFO, 
+    		"[#" + Thread.currentThread().getId() + "] "
+			+ "Drawing The Line"
+    	);
     	
     	// Get arraylist of pixels of the triangle
     	ArrayList<Pixel> segmentPixels = LineDrawer.drawSegment(
