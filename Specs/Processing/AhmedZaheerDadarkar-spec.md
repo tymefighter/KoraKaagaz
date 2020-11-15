@@ -9,7 +9,7 @@
   retrieved from) the filesystem for persistence.
     * Write a static function `serialize` of the class `Serialize` to take an 
       object (which is serializable) and convert it into a serialized string
-      which can be used to completely recover the object at the receiver end.
+      from which we can completely recover the original object.
     * Write a static function `deSerialize` of the class `Serialize` to take
       a serialized string and return the corresponding object. The dynamic type
       can be inferred from the `getClass` method of the object.
@@ -20,10 +20,10 @@
       different kinds of shapes like Circles, Squares, Triangles and
       Line Segments as `BoardObject` objects.
 * Add Persistence Support Functions at the Server Side
-    * Write a function to take a filepath, serialize the Board State and store
-      it as a file at the filepath provided. 
-    * Write a function to take a filepath, read the serialized string from the
-      file at that filepath and deserialize it into the board state.
+    * Write a function to take a Serialized Board State String and a Board ID and store
+      the Board State as a file at the filepath provided. 
+    * Write a function to take a Board ID, read the serialized String from the
+      file containing that String.
 * Add Utility Classes
     * Add utility classes for Angle, BoardId, BrushRadius, Dimension, Filepath,
       Intensity, ObjectId, Pixel, Port, Position, Radius, Timestamp, UserId and
@@ -36,14 +36,14 @@
 1. First convert the object into a byte stream.
 2. Then encode the byte stream to a String using the `ISO-8859-1` charset. The
    reason for using this charset is that this charset is a one-to-one mapping
-   between bytes and characters, this allows one to retrieve the bytes
+   between bytes and characters, this allows one to retrieve the exact same bytes
    back from the String by decoding it using `ISO-8859-1` charset.
 3. Return the encoded String as the serialized String of the provided object.
 
 ## Deserialize a Serialized String
 
 2. Convert the Serialized String into bytes using `ISO-8859-1` charset.
-3. Get the object as an object of type Serializable from the bytes of
+3. Get the object as an object of type `Serializable` from the bytes of
    the object.
 4. Return the Serializable object as the recovered object. One may cast it
    back to it's dynamic (actual) type by downcasting it at runtime.
@@ -51,10 +51,10 @@
 Notes:
 
 - UTF-8 and ASCII charsets do not have one-to-one mapping between bytes and
-  characters since UTF-8 is a multibyte encoding and ASCII only uses
-  values 0 to 127 (inclusive).
+  characters since UTF-8 is a multibyte encoding and ASCII only has character
+  values between 0 to 127 (both inclusive).
 - One may recover the original object with its accurate type by first calling
-  the deserialize function on the serialized String and extracting the object,
+  the `deSerialize` function on the serialized String and extracting the object,
   then downcasting it to its dynamic type.
 - Here, by dynamic type I mean runtime type of the object as opposed to the
   static type determined by a base class or an interface.
@@ -112,14 +112,13 @@ functionality.
 
 ### Storing the Board State in a File
 
-Given the board state and a local filepath, the board state
-is serialized and stored at the given file path.
+Given the Board State String and the Board ID, the board state
+String is stored in the file system.
 
 ### Loading the Board State from a File
 
-Given a local filepath corresponding to a file which contains
-a board state, we would deserialize and reconstruct the board state
-from that file.
+Given the Board ID, read the file which contains the Board State String
+and return the String.
 
 # Utility Classes
 
@@ -132,10 +131,9 @@ Username shall be provided. These classes are provided for better readability.
 ```java
     /**
      * The Serialize class provides the serialize and deserialize
-     * functions for Serializable objects. The `deserialize`
+     * functions for Serializable objects. The `deSerialize`
      * function when applied on a string serialized by the
      * `serialize` function outputs the exact same object
-     * and its dynamic type.
      */
     public class Serialize {
         /**
@@ -159,7 +157,7 @@ Username shall be provided. These classes are provided for better readability.
     /** 
      * The functions in `BoardObjectBuilder` class are responsible for computing
      * the pixels of the corresponding shape from the given parameters, updating
-     * the board state, and returning the built board object to the caller.
+     * the board state and returning the built board object to the caller.
      */
     public class BoardObjectBuilder {
     
