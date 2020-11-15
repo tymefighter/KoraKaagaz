@@ -189,7 +189,7 @@ Username shall be provided. These classes are provided for better readability.
          * Constructs an axis parallel filled rectangle based on the top left, bottom
          * right positions and the intensity (color) 
          */
-        public static BoardObject drawRectangle (
+        public static BoardObject drawRectangleFill (
             Position topLeft,
             Position bottomRight,
             Intensity intensity
@@ -220,9 +220,9 @@ Username shall be provided. These classes are provided for better readability.
      * giving information about the parameters of the operation
      */
     public enum BoardObjectOperationType {
-        CREATE,        // Non-parametric operations
+        CREATE,        /** Non-parametric operations begin */
         DELETE,
-        ROTATE,        // Parametric operations
+        ROTATE,        /** Parametric operations begin */
         COLOR_CHANGE
     }
     
@@ -263,6 +263,7 @@ Username shall be provided. These classes are provided for better readability.
         private Angle angleCCW;
         public RotateOperation (Angle angleCCW);
         public BoardObjectOperationType getOperationType ();
+        public Angle getAngle();
     }
     
     /** The Color Change Operation - It has the intensity parameter (i.e. color) */
@@ -270,6 +271,7 @@ Username shall be provided. These classes are provided for better readability.
         private Intensity intensity;
         public ColorChangeOperation (Intensity intensity);
         public BoardObjectOperationType getOperationType ();
+        public Intensity getIntensity();
     }
     
     /**
@@ -319,58 +321,61 @@ Username shall be provided. These classes are provided for better readability.
         /** Gets the operation corresponding to this shape */
         public IBoardObjectOperation getOperation();
 	  
-        /** Sets the operations to be performed on this board object */
-        public void setOperation (IBoardObjectOperation boardOp);
+        /** Sets the operation to be performed on this board object */
+        public void setOperation(IBoardObjectOperation boardOp);
         
         /** Gets the board object's list of pixels */
-        public ArrayList <Pixel> getPixels ();
+        public ArrayList <Pixel> getPixels();
+        
+        /** Sets the pixels using the given array-list of pixels */
+        public void setPixels(ArrayList <Pixel> pixels);
+        
+        /** Gets the board object's list of positions */
+        public ArrayList <Position> getPositions();
         
         /** Sets the pixels using the given array-list of pixels */
         public void setPixels (ArrayList <Pixel> pixels);
         
-        /** Gets the board object's list of positions */
-        public ArrayList <Position> getPositions ()
-        
-        /** Sets the pixels using the given array-list of pixels */
-        public void setPixels (ArrayList <Pixel> pixels)
-        
         /** Gets the user's User ID who owns this board object */
-        public UserId getUserId()
+        public UserId getUserId();
         
         /** Sets user ID of this board object */
-        public void setUserId(UserId userId)
+        public void setUserId(UserId userId);
         
         /** Gets object ID */
-        public ObjectId getObjectId()
+        public ObjectId getObjectId();
         
         /** Gets timestamp of creation of object */
-        public Timestamp getTimestamp()
+        public Timestamp getTimestamp();
         
         /** Returns true if this a reset object, else false */
-        public boolean isResetObject()
+        public boolean isResetObject();
         
         /** Sets previous intensities of pixels */
-        public void setPrevIntensity(ArrayList <Pixel> prevPixelIntensities) 
+        public void setPrevIntensity(ArrayList <Pixel> prevPixelIntensities) ;
+        
+        /** Gets previous intensities of pixels */
+        public ArrayList <Pixel> getPrevIntensity();
     }
 ```
 
 ```java
 
     /**
-     * This class provides functions for storing board state at a location
-     * in the filepath, and retrieving it back from the filepath
+     * This class provides functions for storing board state string at
+     * in the filesystem, and retrieving it back from the filesystem
      */
     public class PersistanceSupport {
     
-        /** Stores the board state string as a file at the given filepath */
+        /** Stores the Board State String as a file in the filesystem */
         public static void storeStateString (
             String boardStateString,
-            Filepath filepath
+            BoardId boardId
         );
         
-        /** Stores the board state string from a file at the given filepath */
+        /** Loads the Board State String from the file containing the String */
         public static String loadStateString (
-            Filepath filepath
+            BoardId boardId
         );
     }
 ```
@@ -424,7 +429,7 @@ Username shall be provided. These classes are provided for better readability.
         public Filepath(String filepath);
         
         /** Converts to String */
-        public String toString()
+        public String toString();
     }
     
     /** Class Representing Pixel Intensity */
@@ -433,7 +438,7 @@ Username shall be provided. These classes are provided for better readability.
         public int r, g, b;
         
         /** Intensity Constructor */
-        public Intensity(int red, int green, int blue)
+        public Intensity(int red, int green, int blue);
     }
     
     /** Class Representing the Board Object ID */
@@ -442,10 +447,10 @@ Username shall be provided. These classes are provided for better readability.
         private String objectId;
         
         /** Builds Object ID using User ID and Timestamp */
-        public ObjectId(UserId userId, Timestamp timestamp)
+        public ObjectId(UserId userId, Timestamp timestamp);
         
         /** Converts to String */
-        public String toString()
+        public String toString();
     }
     
     /** Class Representing a Pixel */
@@ -457,7 +462,7 @@ Username shall be provided. These classes are provided for better readability.
         public Intensity intensity;
         
         /** Constructor for Pixel class */
-        public Pixel(Position position, Intensity intensity)
+        public Pixel(Position position, Intensity intensity);
     }
     
     /** Class Representing a Port */
@@ -466,7 +471,7 @@ Username shall be provided. These classes are provided for better readability.
         public int port;
         
         /** Port Constructor */
-        public Port(int port)
+        public Port(int port);
     }
     
     /** Class Representing a Position on the Board */
@@ -475,7 +480,7 @@ Username shall be provided. These classes are provided for better readability.
         public int r, c;
         
         /** Position Constructor */
-        public Position(int row, int column)
+        public Position(int row, int column);
     }
     
     /** Class Representing a Radius value */
@@ -484,22 +489,22 @@ Username shall be provided. These classes are provided for better readability.
         public double radius;
         
         /** Radius Constructor */
-        public Radius(double radius)
+        public Radius(double radius);
     }
     
-    /** Class Representing the Board Object ID */
+    /** Class Representing a Timestamp */
     public class Timestamp {
         /** Timestamp is internally stored as a Date */
         private Date date;
         
         /** Timestamp Constructor */
-        public Timestamp(Date date)
+        public Timestamp(Date date);
         
         /** Converts to String */
-        public String toString()
+        public String toString();
         
         /** Converts to Date */
-        public Date toDate()
+        public Date toDate();
     }
     
     /** Class Representing a user's User ID */
@@ -515,10 +520,10 @@ Username shall be provided. These classes are provided for better readability.
         public UserId(IpAddress ipAddress, Username username)
         
         /** Converts to String */
-        public String toString()
+        public String toString();
         
         /** Gets the Username present in the User ID */
-        public Username getUsername()
+        public Username getUsername();
     }
     
     /** Class Representing a user's Username */
@@ -527,10 +532,10 @@ Username shall be provided. These classes are provided for better readability.
         private String username;
         
         /** Username Constructor */
-        public Username(String username)
+        public Username(String username);
         
         /** Converts to String */
-        public String toString()
+        public String toString();
     }
     
 ```
