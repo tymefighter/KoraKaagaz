@@ -550,14 +550,14 @@ Username shall be provided. These classes are provided for better readability.
   not be instantiated for objects. They are only used to group together
   similar functions.
 * We thought about using JSON for storing the class type within the serialized
-  String, but now we found that it is not needed since Java provides a way
+  String, but we found out that it is not needed since Java provides a way
   to get the dynamic type of the object using the `getClass` method (a method 
   inherited from the `Object` class).
 * The `Serializable` interface does not require any methods to be implemented.
 * The algorithms for computing the pixels from the parameters of different shapes
   would use slight approximations for digits behind the decimal point for the
-  computed pixels since the screen is a 2D array of pixels (smallest object
-  that can be manipulted is the pixel). 
+  computed pixels since the screen is a 2D array of pixels (smallest entity
+  that can be manipulted is a pixel). 
 * One may notice that the `BoardObject` class contains an arrayList of `Pixels`
   and not `Positions`. Although this may not be required in the current design
   since we only support single-colored objects. But, we can extend this to
@@ -570,12 +570,12 @@ Username shall be provided. These classes are provided for better readability.
   classes (with static members) for each operation (like rotate, color change,
   delete) and let other team members handle it.
 * Information about the operation to be performed on the board object is present
-  within the `BoardObject` in the form of an object of `BoardObjectOperation`
-  class named `boardOp`. Here, if all operations were non-parameteric (i.e. did
-  not have parameters like angle or color), then we could have used just an enum
+  within the `BoardObject` in the form of an object of `IBoardObjectOperation`
+  interface named `boardOp`. Here, if all operations were non-parameteric (i.e. did
+  not have parameters like angle or color), then we could have just used an enum
   type, but since that is not the case, we ended up building a single interface
-  and a class for each operation.
-* We would be providing utility classes which are inherently Strings itself.
+  and multiple operation classes - one for each operation.
+* We would be providing utility classes which are inherently simple types.
   The reason for doing this is that we can identify the object by the object name
   as well as its type. For example, we know from this `UserId userId` that
   `userId` represents a user's ID, this provides extended readibility (extension
@@ -583,15 +583,15 @@ Username shall be provided. These classes are provided for better readability.
 
 # Summary and Conclusion
 
-* The serialize and deserialize methods can work on any object that is Serializable
+* The `serialize` and `deSerialize` methods can work on any object that is `Serializable`
   i.e. not just on board objects. This would be useful for other serializable 
   objects like the board state that have to be transferred using the network.
 * The various methods for drawing different standard shapes would be present
   as static functions within the `BoardObjectBuilder` class.
 * The `BoardObject` class is the class whose objects would be operated upon by
   various different operations like rotate, delete, undo, redo, color change.
-  Objects of this class would be sent accross the network to inform the server
+  Objects of this class would be sent over the network to inform the server
   and other clients about an operation performed on the object by a client.
-* The store and load functions for storing and loading the board state in the
+* The store and load functions for storing and loading the board state string in
   the server's file system would be provided for use by the server which has
-  to maintain persistence of the board object.
+  to maintain persistence of the board state.
